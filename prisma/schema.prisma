@@ -11,52 +11,83 @@ datasource db {
 }
 
 model User {
-  id            String           @id @default(uuid())
-  email         String           @unique
-  password      String?
+  id            String         @id @default(uuid())
+  email         String         @unique
   name          String?
-  emailVerified Boolean          @default(false)
-  image         String?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  sessions      Session[]
-  twoFactorAuth TwoFactorAuth?
-  schools       UserSchoolRole[]
+  password      String? // Nullable se usando OAuth (ex: Google)
+  emailVerified DateTime? // Confirmção de e-mail
+  image         String? // Avatar (URL)
+  accounts      Account[] // Conexões OAuth (Google)
+  schools       UserSchool[] // Escolas associadas + roles
+  sessions      Session[] // Sessões ativas
+  twoFactorAuth TwoFactorAuth? // Configuração de 2FA
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
+// Tabela de conexões OAuth (ex: Google)
+model Account {
+  id                String   @id @default(uuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+  provider          String // ex: "google"
+  providerAccountId String // ID único do provedor (ex: ID do Google)
+  type              String // ex: "oauth"
+  refreshToken      String?
+  accessToken       String?
+  expiresAt         Int?
+  tokenType         String?
+  scope             String?
+  createdAt         DateTime @default(now())
+
+  @@unique([provider, providerAccountId])
+}
+
+// Tabela de escolas
+model School {
+  id          String       @id @default(uuid())
+  name        String
+  description String?
+  users       UserSchool[] // Usuários associados
+  createdAt   DateTime     @default(now())
+}
+
+// Tabela de junção (User <-> School) com roles específicas
+model UserSchool {
+  userId    String
+  schoolId  String
+  role      UserSchoolRole // Role do usuário na escola
+  user      User           @relation(fields: [userId], references: [id])
+  school    School         @relation(fields: [schoolId], references: [id])
+  createdAt DateTime       @default(now())
+
+  @@id([userId, schoolId])
+}
+
+// Roles possíveis dentro de uma escola
+enum UserSchoolRole {
+  ADMIN // Gerencia usuários e configurações
+  TEACHER // Acesso a materiais didáticos
+  STUDENT // Acesso básico
+}
+
+// Sessões ativas (para controle de login)
 model Session {
   id           String   @id @default(uuid())
   userId       String
   user         User     @relation(fields: [userId], references: [id])
   sessionToken String   @unique
   expires      DateTime
-  ip           String?
-  userAgent    String?
   createdAt    DateTime @default(now())
 }
 
+// Configuração de 2FA (TOTP)
 model TwoFactorAuth {
-  id          String   @id @default(uuid())
-  userId      String   @unique
-  user        User     @relation(fields: [userId], references: [id])
-  secret      String
-  isEnabled   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-}
-
-model School {
-  id        String           @id @default(uuid())
-  name      String
-  users     UserSchoolRole[]
-  createdAt DateTime         @default(now())
-}
-
-model UserSchoolRole {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  schoolId  String
-  school    School   @relation(fields: [schoolId], references: [id])
-  role      String // Ex: "ADMIN", "TEACHER", "STUDENT"
-  createdAt DateTime @default(now())
+  id         String   @id @default(uuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id])
+  secret     String // Chave secreta para TOTP
+  backupCode String? // Código de backup (único uso)
+  enabled    Boolean  @default(false)
+  createdAt  DateTime @default(now())
 }
