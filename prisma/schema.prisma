@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String           @id @default(uuid())
+  email         String           @unique
+  password      String?
+  name          String?
+  emailVerified Boolean          @default(false)
+  image         String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  sessions      Session[]
+  twoFactorAuth TwoFactorAuth?
+  schools       UserSchoolRole[]
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  sessionToken String   @unique
+  expires      DateTime
+  ip           String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+}
+
+model TwoFactorAuth {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  secret      String
+  isEnabled   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model School {
+  id        String           @id @default(uuid())
+  name      String
+  users     UserSchoolRole[]
+  createdAt DateTime         @default(now())
+}
+
+model UserSchoolRole {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  role      String // Ex: "ADMIN", "TEACHER", "STUDENT"
+  createdAt DateTime @default(now())
+}
