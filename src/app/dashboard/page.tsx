@@ -18,6 +18,7 @@ export default async function DashboardPage() {
         select: {
           name: true,
           email: true,
+          image: true,
         },
       },
     },
@@ -46,7 +47,14 @@ export default async function DashboardPage() {
                     : "bg-white border-gray-200"
                 }`}
               >
-                <div className="flex justify-between items-center">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <img
+                      src={s.user.image || "/default-avatar.png"} // Fallback para imagem padrão
+                      alt="Avatar"
+                      className="h-10 w-10 rounded-full mr-4"
+                    />
+                  </div>
                   <div>
                     <p className="font-medium">
                       {s.user.name || "Nome não disponível"}
