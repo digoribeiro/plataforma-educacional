@@ -1,28 +1,30 @@
-// components/DeleteButton.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
-export function DeleteButton(user : { user: string }) {
+interface DeleteButtonProps {
+  userId: string;
+}
+
+export function DeleteButton({ userId }: DeleteButtonProps) {
   const router = useRouter();
+  
   const handleDelete = async () => {
     if (!confirm("Tem certeza que deseja excluir este usuário?")) return;
 
     try {
-      const response = await fetch(`/api/admin/users/${user.userId}`, {
+
+      const response = await fetch(`/api/admin/users/${userId}`, {
         method: "DELETE",
       });
 
-      if (!response.ok) {
-        throw new Error("Falha ao excluir usuário");
-      }
+      if (!response.ok) throw new Error("Falha ao excluir usuário");
 
       toast.success("Usuário excluído com sucesso");
       router.refresh();
     } catch (error) {
-      console.error(error);
       toast.error("Erro ao excluir usuário");
     }
   };

@@ -34,7 +34,7 @@ export function UserTable({
                 <td className="px-6 py-4">{user.name || "-"}</td>
                 <td className="px-6 py-4">{user.email}</td>
                 <td className="px-6 py-4 space-x-2">
-                  <Link href={`/dashboard/admin/users/${user.id}`}>
+                  <Link href={`/dashboard/users/${user.id}`}>
                     <Button variant="outline">Editar</Button>
                   </Link>
                   <DeleteButton userId={user.id} />
