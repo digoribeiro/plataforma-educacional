@@ -1,7 +1,6 @@
 // app/dashboard/admin/users/components/user-form.tsx
-'use client';
+"use client";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -45,15 +44,16 @@ export function UserForm({
   }[];
 }) {
   const router = useRouter();
-  
+
   const form = useForm({
     defaultValues: {
-      name: user.name || '',
+      name: user.name || "",
       email: user.email,
-      schools: allSchools.map(school => ({
+      schools: allSchools.map((school) => ({
         schoolId: school.id,
-        selected: user.schools.some(u => u.schoolId === school.id),
-        role: user.schools.find(u => u.schoolId === school.id)?.role || 'STUDENT',
+        selected: user.schools.some((u) => u.schoolId === school.id),
+        role:
+          user.schools.find((u) => u.schoolId === school.id)?.role || "STUDENT",
       })),
     },
   });
@@ -61,9 +61,9 @@ export function UserForm({
   async function onSubmit(data: any) {
     try {
       const response = await fetch(`/api/admin/users/${user.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: data.name,
@@ -77,13 +77,13 @@ export function UserForm({
       });
 
       if (response.ok) {
-        toast.success('Usuário atualizado com sucesso!');
-        router.push('/dashboard/users');
+        toast.success("Usuário atualizado com sucesso!");
+        router.push("/dashboard/users");
       } else {
-        toast.error('Erro ao atualizar usuário');
+        toast.error("Erro ao atualizar usuário");
       }
     } catch (error) {
-      toast.error('Erro interno no servidor');
+      toast.error("Erro interno no servidor");
     }
   }
 
@@ -120,7 +120,10 @@ export function UserForm({
         <div className="space-y-4">
           <h3 className="font-medium">Escolas e Permissões</h3>
           {allSchools.map((school, index) => (
-            <div key={school.id} className="flex items-center gap-4 p-3 border rounded-lg">
+            <div
+              key={school.id}
+              className="flex items-center gap-4 p-3 border rounded-lg"
+            >
               <FormField
                 name={`schools.${index}.selected`}
                 render={({ field }) => (
@@ -165,14 +168,18 @@ export function UserForm({
         </div>
 
         <div className="flex justify-end gap-2">
-          <Button
+          <button
             type="button"
-            variant="outline"
-            onClick={() => router.push('/dashboard/admin/users')}
+            onClick={() => router.push("/dashboard/users")}
           >
             Cancelar
-          </Button>
-          <Button type="submit">Salvar Alterações</Button>
+          </button>
+          <button
+            className="px-4 ml-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            type="submit"
+          >
+            Salvar Alterações
+          </button>
         </div>
       </form>
     </Form>

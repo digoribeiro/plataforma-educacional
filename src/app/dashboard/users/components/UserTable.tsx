@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { DeleteButton } from "./DeleteButton";
 
 export function UserTable({
@@ -14,9 +13,6 @@ export function UserTable({
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Usuários ({totalUsers})</h1>
-        <Link href="/dashboard/admin/users/create">
-          <Button>Adicionar Usuário</Button>
-        </Link>
       </div>
 
       <div className="border rounded-lg overflow-hidden">
@@ -35,7 +31,7 @@ export function UserTable({
                 <td className="px-6 py-4">{user.email}</td>
                 <td className="px-6 py-4 space-x-2">
                   <Link href={`/dashboard/users/${user.id}`}>
-                    <Button variant="outline">Editar</Button>
+                    <button className="px-4 py-1 mr-4 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-sm">Editar</button>
                   </Link>
                   <DeleteButton userId={user.id} />
                 </td>

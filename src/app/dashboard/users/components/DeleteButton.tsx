@@ -2,7 +2,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 export function DeleteButton({ userId }: { userId: string }) {
@@ -33,8 +32,8 @@ export function DeleteButton({ userId }: { userId: string }) {
   };
 
   return (
-    <Button variant="destructive" onClick={handleDelete}>
+    <button className="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200 text-sm" onClick={handleDelete}>
       Excluir
-    </Button>
+    </button>
   );
 }
