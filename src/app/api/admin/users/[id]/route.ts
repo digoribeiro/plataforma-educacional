@@ -3,36 +3,38 @@ import { NextResponse } from "next/server";
 import { UserSchoolRole } from "@prisma/client";
 
 export async function DELETE(
-  request: Request,
+  req: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    console.log(params.id)
-    const userExists = await prisma.user.findUnique({
-      where: { userId: params.id },
-    });
-
-    if (!userExists) {
-      return NextResponse.json(
-        { error: "Usuário não encontrado" },
-        { status: 404 }
-      );
-    }
-
-    await prisma.user.delete({
-      where: { id: params.userId },
-    });
+    // Deleto primeiro todas as relações do usuário e na ultima linha deleto o usuário
+    await prisma.$transaction([
+      prisma.userSchool.deleteMany({
+        where: { userId: params.id },
+      }),
+      prisma.session.deleteMany({
+        where: { userId: params.id },
+      }),
+      prisma.twoFactorAuth.deleteMany({
+        where: { userId: params.id },
+      }),
+      prisma.account.deleteMany({
+        where: { userId: params.id },
+      }),
+      prisma.user.delete({
+        where: { id: params.id },
+      })
+    ]);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(error);
+    console.error("Erro ao deletar usuário:", error);
     return NextResponse.json(
-      { error: "Erro ao excluir usuário" },
+      { error: "Erro ao excluir usuário e suas relações" },
       { status: 500 }
     );
   }
 }
-
 export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
