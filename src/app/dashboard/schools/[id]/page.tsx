@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { SchoolForm } from "../components/SchoolForm";
+import Header from "@/app/components/Header";
 
 export default async function EditSchoolPage({
   params,
@@ -14,11 +15,11 @@ export default async function EditSchoolPage({
   if (!school) return notFound();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Editar Escola</h1>
+    <>
+      <Header title="Editar Escol" />
+      <div className="mt-4">
+        <SchoolForm school={school} />
       </div>
-      <SchoolForm school={school} />
-    </div>
+    </>
   );
 }

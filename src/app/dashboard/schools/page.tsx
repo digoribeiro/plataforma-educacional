@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { DeleteSchoolButton } from "./components/DeleteSchoolButton";
+import Header from "@/app/components/Header";
 
 export default async function SchoolsListPage() {
   const schools = await prisma.school.findMany({
@@ -8,9 +9,9 @@ export default async function SchoolsListPage() {
   });
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Escolas Cadastradas</h1>
+    <div>
+      <Header title="Escolas Cadastradas" />
+      <div className="flex justify-end items-center mb-6">
         <Link
           href="/dashboard/schools/create"
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"

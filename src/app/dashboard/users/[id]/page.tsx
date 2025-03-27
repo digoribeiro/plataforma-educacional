@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { UserForm } from "../components/UserForm";
+import Header from "@/app/components/Header";
 
 export default async function EditUserPage({
   params,
@@ -23,13 +24,11 @@ export default async function EditUserPage({
   if (!user) return notFound();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">
-          Editar Usuário: {user.name || user.email}
-        </h1>
+    <>
+      <Header title={`Editar Usuário: ${user.name || user.email}`} />
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <UserForm user={user} allSchools={allSchools} />
       </div>
-      <UserForm user={user} allSchools={allSchools} />
-    </div>
+    </>
   );
 }

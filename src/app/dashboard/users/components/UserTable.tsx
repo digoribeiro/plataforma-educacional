@@ -2,20 +2,10 @@
 import Link from "next/link";
 import { DeleteButton } from "./DeleteButton";
 
-export function UserTable({
-  users,
-  totalUsers,
-}: {
-  users: any[];
-  totalUsers: number;
-}) {
+export function UserTable({ users }: { users: any[] }) {
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Usuários ({totalUsers})</h1>
-      </div>
-
-      <div className="border rounded-lg overflow-hidden">
+    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="border rounded-lg">
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
@@ -31,7 +21,9 @@ export function UserTable({
                 <td className="px-6 py-4">{user.email}</td>
                 <td className="px-6 py-4 space-x-2">
                   <Link href={`/dashboard/users/${user.id}`}>
-                    <button className="px-4 py-1 mr-4 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-sm">Editar</button>
+                    <button className="px-4 py-1 mr-4 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-sm">
+                      Editar
+                    </button>
                   </Link>
                   <DeleteButton userId={user.id} />
                 </td>

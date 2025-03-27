@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { UserTable } from "./components/UserTable";
+import Header from "@/app/components/Header";
 
 export default async function UsersPage({
   searchParams,
@@ -35,5 +36,10 @@ export default async function UsersPage({
     },
   });
 
-  return <UserTable users={users} totalUsers={totalUsers} />;
+  return (
+    <>
+      <Header title={`Total de usuários ${totalUsers}`} />
+      <UserTable users={users} />
+    </>
+  );
 }

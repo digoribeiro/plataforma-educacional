@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -94,14 +93,13 @@ export function SchoolForm({
         />
 
         <div className="flex justify-end gap-2">
-          <Button
+          <button
             type="button"
-            variant="outline"
             onClick={() => router.push("/dashboard/schools")}
           >
             Cancelar
-          </Button>
-          <Button type="submit">Salvar Alterações</Button>
+          </button>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" type="submit">Salvar Alterações</button>
         </div>
       </form>
     </Form>
