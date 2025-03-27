@@ -36,8 +36,15 @@ export default async function SchoolsListPage() {
                 </span>
               </div>
             </div>
-
-            <DeleteSchoolButton id={school.id} />
+            <div>
+              <Link
+                href={`/dashboard/schools/${school.id}`}
+                className="px-4 py-1 mr-4 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-sm"
+              >
+                Editar
+              </Link>
+              <DeleteSchoolButton id={school.id} />
+            </div>
           </div>
         ))}
       </div>

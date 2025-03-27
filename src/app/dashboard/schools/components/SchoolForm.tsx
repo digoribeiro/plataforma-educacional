@@ -16,37 +16,43 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-// Schema de validação
 const formSchema = z.object({
   name: z.string().min(3, "Nome deve ter pelo menos 3 caracteres"),
   description: z.string().optional(),
 });
 
-export function SchoolForm() {
+export function SchoolForm({
+  school,
+}: {
+  school?: { id: string; name: string; description: string | null };
+}) {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      description: "",
+      name: school?.name || "",
+      description: school?.description || "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch("/api/admin/schools", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const url = school
+        ? `/api/admin/schools/${school.id}`
+        : "/api/admin/schools";
+      const method = school ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
 
       if (response.ok) {
-        toast.success("Escola cadastrada com sucesso!");
+        toast.success(school ? "Escola atualizada!" : "Escola cadastrada!");
         router.push("/dashboard/schools");
       } else {
-        toast.error("Erro ao cadastrar escola");
+        toast.error("Erro ao salvar escola");
       }
     } catch (error) {
       toast.error("Erro interno no servidor");
@@ -95,7 +101,7 @@ export function SchoolForm() {
           >
             Cancelar
           </Button>
-          <Button type="submit">Salvar</Button>
+          <Button type="submit">Salvar Alterações</Button>
         </div>
       </form>
     </Form>
