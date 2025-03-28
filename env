@@ -1,0 +1,4 @@
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET=GhgnPw3zglqtoQEGM1b/3lngqsWyG1tBu9HklJ03qC0=
+GOOGLE_CLIENT_ID=1099143324669-5bhu2saoanig3hmbm1tr3o0sja00p1gf.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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

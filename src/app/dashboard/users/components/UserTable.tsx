@@ -7,7 +7,7 @@ export function UserTable({ users }: { users: any[] }) {
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div className="border rounded-lg">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-white">
             <tr>
               <th className="px-6 py-3 text-left">Nome</th>
               <th className="px-6 py-3 text-left">Email</th>
