@@ -60,7 +60,7 @@ export function SchoolForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pl-8 mt-4">
         <FormField
           control={form.control}
           name="name"

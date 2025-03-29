@@ -35,7 +35,7 @@ export default async function DashboardPage() {
               className={`p-4 border rounded-lg mb-2 ${
                 s.sessionToken === session.sessionToken
                   ? "bg-blue-50 border-blue-200"
-                  : "bg-white border-gray-200"
+                  : "bg-gray-50 border-gray-200"
               }`}
             >
               <div className="flex items-center">

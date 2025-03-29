@@ -26,7 +26,7 @@ export default async function EditUserPage({
   return (
     <>
       <Header title={`Editar Usuário: ${user.name || user.email}`} />
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-8">
         <UserForm user={user} allSchools={allSchools} />
       </div>
     </>

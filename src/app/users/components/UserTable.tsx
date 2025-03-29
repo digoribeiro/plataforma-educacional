@@ -4,10 +4,10 @@ import { DeleteButton } from "./DeleteButton";
 
 export function UserTable({ users }: { users: any[] }) {
   return (
-    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-8">
       <div className="border rounded-lg">
         <table className="w-full">
-          <thead className="bg-white">
+          <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-left">Nome</th>
               <th className="px-6 py-3 text-left">Email</th>

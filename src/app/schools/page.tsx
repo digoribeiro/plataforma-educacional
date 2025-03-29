@@ -20,11 +20,11 @@ export default async function SchoolsListPage() {
         </Link>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 pl-8">
         {schools.map((school) => (
           <div
             key={school.id}
-            className="p-4 border rounded-lg flex justify-between items-start"
+            className="p-4 border rounded-lg flex justify-between items-start bg-gray-50 border-gray-200"
           >
             <div>
               <h2 className="font-semibold text-lg">{school.name}</h2>
