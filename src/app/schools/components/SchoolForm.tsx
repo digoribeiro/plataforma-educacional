@@ -49,7 +49,7 @@ export function SchoolForm({
 
       if (response.ok) {
         toast.success(school ? "Escola atualizada!" : "Escola cadastrada!");
-        router.push("/dashboard/schools");
+        router.push("/schools");
       } else {
         toast.error("Erro ao salvar escola");
       }
@@ -95,7 +95,7 @@ export function SchoolForm({
         <div className="flex justify-end gap-2">
           <button
             type="button"
-            onClick={() => router.push("/dashboard/schools")}
+            onClick={() => router.push("/schools")}
           >
             Cancelar
           </button>

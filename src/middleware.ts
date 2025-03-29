@@ -7,10 +7,16 @@ export async function middleware(request: NextRequest) {
   const cookie = await cookies();
   const token = cookie.get(TOKEN_KEY)?.value;
 
-  const protectedRoutes = ["/dashboard", "/dashboard/:path*"];
+  const protectedRoutes = [
+    "/dashboard",
+    "/users",
+    "/schools",
+    "/dashboard/:path*",
+    "/users/:path*",
+    "/schools/:path*",
+  ];
 
   const isProtectedRoute = protectedRoutes.some((route) => {
-
     const regexPattern = route.replace(/\/:path\*/g, "/.*");
 
     const regex = new RegExp(`^${regexPattern}$`);

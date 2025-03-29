@@ -10,12 +10,12 @@ export default function Navbar() {
           </Link>
         </li>
         <li className="mr-6">
-          <Link className="text-gray-500 hover:text-gray-800" href="/dashboard/schools">
+          <Link className="text-gray-500 hover:text-gray-800" href="/schools">
             Escolas
           </Link>
         </li>
         <li className="mr-6">
-          <Link className="text-gray-500 hover:text-gray-800" href="/dashboard/users">
+          <Link className="text-gray-500 hover:text-gray-800" href="/users">
             Usuários
           </Link>
         </li>

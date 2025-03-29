@@ -20,7 +20,7 @@ export function UserTable({ users }: { users: any[] }) {
                 <td className="px-6 py-4">{user.name || "-"}</td>
                 <td className="px-6 py-4">{user.email}</td>
                 <td className="px-6 py-4 space-x-2">
-                  <Link href={`/dashboard/users/${user.id}`}>
+                  <Link href={`/users/${user.id}`}>
                     <button className="px-4 py-1 mr-4 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-sm">
                       Editar
                     </button>

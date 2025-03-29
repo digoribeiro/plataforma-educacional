@@ -1,4 +1,3 @@
-// app/dashboard/admin/users/components/user-form.tsx
 "use client";
 import { useForm } from "react-hook-form";
 import {
@@ -78,7 +77,7 @@ export function UserForm({
 
       if (response.ok) {
         toast.success("Usuário atualizado com sucesso!");
-        router.push("/dashboard/users");
+        router.push("/users");
       } else {
         toast.error("Erro ao atualizar usuário");
       }
@@ -170,7 +169,7 @@ export function UserForm({
         <div className="flex justify-end gap-2">
           <button
             type="button"
-            onClick={() => router.push("/dashboard/users")}
+            onClick={() => router.push("/users")}
           >
             Cancelar
           </button>
