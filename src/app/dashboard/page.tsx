@@ -1,15 +1,7 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import Header from "../components/Header";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { SignOutButton } from "../components/signOutButton";
 
 export default async function DashboardPage() {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/");
-  }
-
   const sessions = await prisma.session.findMany({
     where: { userId: session.user.id },
     orderBy: { createdAt: "desc" },
